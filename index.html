@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winter Night Scene</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script src="star.js"></script>
 </head>
 <body>  
-    <a-scene>
-
+    <a-scene post-processing="enabled: true">
+       
         <a-assets>
             <!-- Load background image and ground -->
             <img id="background"  alt="starry-night" src="assets/background.jpg">
@@ -16,23 +18,28 @@
             <img id="snowing" alt="snowing" src="assets/snow.gif">
         </a-assets>
 
+        <!-- Camera entity with vignette effect -->
+        <a-entity camera look-controls position="0 0.8 0" vignette="boost: 10; reduction: 0.5;">
+            <a-animation attribute="position" dur="5000" to="0 -5 -10" easing="linear" repeat="indefinite"></a-animation>
+        </a-entity>
 
-        <!-- Camera entity -->
-        <a-entity camera look-controls position="0 0.8 0"></a-entity>
+        <!-- Declare the shooting star model -->
+        <a-entity>
+            <a-asset-item id="shooting-stars" src="assets/sun.glb"></a-asset-item>
+        </a-entity>
 
-          <!-- Sound for Trees (Leaves) -->
-          <a-sound id="leaves"  src="assets/leaves.wav" position="0 0 -7" autoplay="false" loop="true" volume="0.5"></a-sound>
+        <!-- Add animated snow GIF -->
+        <a-plane position="-2 1 -8" src="#snowing" material="shader: flat;" transparent="true" height="10" width="10">
+            <!-- Animate the position of the snow plane -->
+            <a-animation attribute="position" dur="5000" to="0 1 -12" easing="linear" repeat="indefinite"></a-animation>
+        </a-plane>
 
+        <!-- Sound for Trees (Leaves) -->
+        <a-sound id="leaves"  src="assets/leaves.wav" position="0 0 -7" autoplay="false" loop="true" volume="0.5"></a-sound>
 
-          <!-- Play a WAV Sound -->
-          <a-sound src="assets/frogs_sound.wav" autoplay="true" loop="true" volume="0"></a-sound>
+        <!-- Play a WAV Sound -->
+        <a-sound src="assets/frogs_sound.wav" autoplay="true" loop="true" volume="0"></a-sound>
 
-    
-       <!-- Snow GIF -->
-        <a-plane position="0 1 -5" src="#snowing" transparent="true"> </a-plane>
-
-
-       
         <a-entity id="tree1" gltf-model="assets/toon_tree_02.glb" position="0 0 -7" rotation="0 110 0" scale="4 4 4">
             <!-- Interaction: Trigger Sound on Click -->
             <a-entity position="0 1.5 0">
@@ -63,14 +70,8 @@
         <!-- Ambient Light for Dark Scene -->
         <a-light type="ambient" intensity="10" color="#000"></a-light>
 
-          <!-- Spotlight for House -->
-          <a-light type="spot" position="-4 1 -4" target="#house" intensity="5" angle="30" penumbra="20" color="#ffcc00"></a-light>
-
-       
-
-
-       
-
+        <!-- Spotlight for House -->
+        <a-light type="spot" position="-4 1 -4" target="#house" intensity="5" angle="30" penumbra="20" color="#ffcc00"></a-light>
 
         <!-- Starry night sky background -->
         <a-sky src="#background" color="#111"></a-sky>
