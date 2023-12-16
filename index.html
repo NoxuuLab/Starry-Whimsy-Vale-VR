@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +9,35 @@
 <body>  
     <a-scene>
         <!-- Camera entity -->
-        <a-entity camera look-controls position="0 1.6 0"></a-entity>
+        <a-entity camera look-controls position="0 0.8 0"></a-entity>
+        <a-entity gltf-model="assets/toon_tree_02.glb" position="0 0 -7" rotation="0 110 0" scale="4 4 4"></a-entity>
+        <a-entity gltf-model="assets/house_cat.glb" position="-4 1 -4" rotation="0 30 0" scale="20 20 20"></a-entity>
+
+        <!-- GLB Models -->
+        <a-entity gltf-model="assets/chinese_lamp.glb" scale="0.2 0.2 0.2" position="2 0 -8"></a-entity>
+        <a-entity gltf-model="assets/chinese_lamp.glb" scale="0.2 0.2 0.2" position="-2 0 -8"></a-entity>
+        <a-entity gltf-model="assets/chinese_lamp.glb" scale="0.2 0.2 0.2" position="-2 0 -5"></a-entity>
+
+        <!-- Lights for Chinese Lamps -->
+        <a-light type="point" position="2 1.5 -8" intensity="1" color="#ffcc00"></a-light>
+        <a-light type="point" position="-2 1.5 -8" intensity="1" color="#ffcc00"></a-light>
+        <a-light type="point" position="-2 1.5 -5" intensity="1" color="#ffcc00"></a-light>
+
+        <!-- Ambient Light for Dark Scene -->
+        <a-light type="ambient" intensity="2" color="#000"></a-light>
 
         <a-assets>
-            <!-- Load background image and model -->
+            <!-- Load background image and ground -->
             <img id="background" alt="starry-night" src="assets/background.jpg">
-            <a-asset-item id="model" src="assets/background.fbx"></a-asset-item>
+            <img id="snow" alt="snow" src="assets/snow_texture.jpg">
         </a-assets>
 
         <!-- Starry night sky background -->
         <a-sky src="#background"></a-sky>
 
-        <!-- 3D Model -->
-        <a-entity position="0 0 0" scale="0.1, 0.1, 0.1" rotation="0 0 0" gltf-model="#model"></a-entity>
+        <!-- Snow floor -->
+        <!-- Add your snow floor if needed -->
+
     </a-scene>
 </body>
 </html>
