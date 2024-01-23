@@ -7,55 +7,7 @@
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
-
-    
     <script src="light-toggle.js"></script>
-
-    <script>
-        function createRandomModels(numberOfModels) {
-    var scene = document.querySelector('a-scene'); 
-
-    for (let i = 0; i < numberOfModels; i++) {
-        var wrapper = document.createElement('a-entity');
-        wrapper.setAttribute('position', getRandomPosition());
-
-        var model = document.createElement('a-entity');
-        model.setAttribute('gltf-model', '#fluffy-cloud'); // Ensure this ID matches the ID in <a-asset-item>
-        model.setAttribute('scale', '1 1 1');
-
-        // Append the model to the wrapper
-        wrapper.appendChild(model);
-
-        // Add rotation animation to the model (not the wrapper)
-        model.setAttribute('animation', `property: rotation; 
-                                         to: 0 360 0; 
-                                         loop: true; 
-                                         dur: 5000; 
-                                         easing: linear`);
-
-        scene.appendChild(wrapper);
-    }
-}
-
-        function getRandomPosition() {
-            // Maximum values
-            var maxX = 10;
-            var maxY = 5;
-            var maxZ = -6;
-    
-            // Minimum values
-            var minX = -10;
-            var minY = 3;
-            var minZ = -5;
-    
-            var randomX = Math.random() * (maxX - minX) + minX * (Math.random() < 0.5 ? -1 : 1);
-            var randomY = Math.random() * (maxY - minY) + minY;
-            var randomZ = Math.random() * (maxZ - minZ) + minZ * (Math.random() < 0.5 ? -1 : 1);
-    
-            return randomX + ' ' + randomY + ' ' + randomZ;
-        }
-    </script>
-    
 </head>
 <body>
     <a-scene cursor="rayOrigin:mouse">
@@ -68,49 +20,41 @@
             <a-asset-item id="fluffy-cloud" src="assets/main_scene/fluffy_cloud.glb"></a-asset-item>
             <audio id="spookySound" src="assets/main_scene/growl.wav"></audio>
             <audio id="backgroundMusic" src="assets/main_scene/cricket.mp3"></audio>
-    
-</a-assets>
         </a-assets>
 
         <!-- ENVIRONMENT -->
-        <a-entity environment="
-                fog: 0.7;
-                groundColor: #100; 
-                preset: dream; 
-                groundTexture: none;
-                grid: none;
-                groundYScale: 60;
-                dressing: none">
-        </a-entity>
+        <a-entity environment="fog: 0.7; groundColor: #100; preset: dream; groundTexture: none; grid: none; groundYScale: 60; dressing: none"></a-entity>
 
         <!-- CAMERA -->
-        <a-entity id="rig">
-            <a-entity camera look-controls position="0 2 0"></a-entity>
+        <a-entity id="rig" camera look-controls position="0 2 0">
             <a-cursor raycaster="objects: .interactive"></a-cursor>
         </a-entity>
 
-         <!-- Background Sound -->
+        <!-- Background Sound -->
         <a-sound src="#backgroundMusic" autoplay="true" loop="true" position="0 0 0"></a-sound>
 
-
         <!-- LIGHTS -->
-        <!-- Ambient light for the scene -->
         <a-light type="ambient" color="#fff" intensity="0.2"></a-light>
-        <a-light type="spot" position="3 5 3"  angle="45" penumbra="0.8" intensity="1"></a-light>
+        <a-light type="spot" position="3 5 3" angle="45" penumbra="0.8" intensity="1"></a-light>
   
+        <!-- The small monster roaring entity -->
+        <a-entity id="spookyEntity" gltf-model="#spooky" position="0 1 -5" rotation="0 15 0" scale="0.3 0.3 0.3">
+            <a-sound src="#spookySound" autoplay="false" loop="true"></a-sound>
+        </a-entity>
 
-    <!-- The small monster roaring entity -->
-    <a-entity id="spookyEntity" gltf-model="#spooky" position="0 1 -5" rotation="0 15 0" scale="0.3 0.3 0.3">
-        <a-sound src="#spookySound" autoplay="false" loop="true"></a-sound>
-    </a-entity>
-<!-- The star cluster -->
-<a-entity gltf-model="#star-cluster" position="-2 4 -5" scale="2 2 2"></a-entity>
-<a-entity gltf-model="#star-cluster" position="5 4 -5" scale="2 2 2"></a-entity>
-<a-entity gltf-model="#dwarf-star" position="2 6 -10" scale="1 1 1"></a-entity>
-<a-entity gltf-model="#fluffy-cloud" position="2 6 -10" scale="1 1 1"></a-entity>
+        <!-- The star cluster -->
+        <a-entity gltf-model="#star-cluster" position="-2 4 -5" scale="2 2 2"></a-entity>
+        <a-entity gltf-model="#star-cluster" position="5 4 -5" scale="2 2 2"></a-entity>
+        <a-entity gltf-model="#dwarf-star" position="2 6 -10" scale="1 1 1"></a-entity>
+        <a-entity gltf-model="#fluffy-cloud" position="2 6 -10" scale="1 1 1"></a-entity>
+    </a-scene>
 
-<script>
-    // Function to create a shooting star
+    <script>
+        // Function to create random models
+        // (createRandomModels function remains the same)
+
+        // Function to create a shooting star
+        // Function to create a shooting star
     function createShootingStar() {
         var scene = document.querySelector('a-scene');
         var shootingStar = document.createElement('a-entity');
@@ -146,20 +90,11 @@
     setInterval(createShootingStar, 1000);
 
     window.onload = function() {
-        // (Other initializations)
+     
     };
-</script>
-    </a-scene>
 
-
-
-
-
-
-
-    <script>
-          // Function to create and animate circles
-          function createAndAnimateCircles() {
+        // Function to create and animate circles
+        function createAndAnimateCircles() {
             const numCircles = 5;
             const scene = document.querySelector('a-scene');
 
@@ -168,15 +103,16 @@
                 ringEntity.setAttribute('radius-inner', i * 0.2);
                 ringEntity.setAttribute('radius-outer', i * 0.2 + 0.05);
                 ringEntity.setAttribute('material', 'color: #000; side: double; opacity: 0.7');
-                ringEntity.setAttribute('position', '0 2 -5.2');
-                ringEntity.setAttribute('rotation', '0 40 0');
+                ringEntity.setAttribute('position', '0 3 -5.2');
+                ringEntity.setAttribute('rotation', '0 20 0');
                 ringEntity.setAttribute('animation', `property: material.opacity; to: 0; dur: 3000; easing: linear;`);
 
                 scene.appendChild(ringEntity);
             }
         }
 
-        // Modified toggleSound function
+
+        // toggleSound function with animated circles on click
         function toggleSound(soundId) {
             var sound = document.getElementById(soundId);
             if (sound.readyState >= 2) {
@@ -189,8 +125,6 @@
             }
         }
 
-        
-
         // Attach the click event listener to the spookyEntity
         document.getElementById('spookyEntity').addEventListener('click', function() {
             toggleSound('spookySound');
@@ -200,6 +134,5 @@
             createRandomModels(20);
         };
     </script>
-  
 </body>
 </html>
