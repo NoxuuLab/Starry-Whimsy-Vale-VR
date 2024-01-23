@@ -109,6 +109,46 @@
 <a-entity gltf-model="#dwarf-star" position="2 6 -10" scale="1 1 1"></a-entity>
 <a-entity gltf-model="#fluffy-cloud" position="2 6 -10" scale="1 1 1"></a-entity>
 
+<script>
+    // Function to create a shooting star
+    function createShootingStar() {
+        var scene = document.querySelector('a-scene');
+        var shootingStar = document.createElement('a-entity');
+
+        // Randomize the starting position
+        var startPosX = Math.random() * 20 - 10; // Random X between -10 and 10
+        var startPosY = Math.random() * 5 + 5;   // Random Y between 5 and 10
+        var startPosZ = Math.random() * 20 - 10; // Random Z between -10 and 10
+
+        // Set the position and model (using a thin cylinder here)
+        shootingStar.setAttribute('geometry', 'primitive: cylinder; radius: 0.05; height: 1');
+        shootingStar.setAttribute('position', startPosX + ' ' + startPosY + ' ' + startPosZ);
+        shootingStar.setAttribute('rotation', '90 0 0');
+        shootingStar.setAttribute('material', 'color: white');
+
+        // Randomize the direction and duration of the animation
+        var endPosX = startPosX + (Math.random() * 20 - 10);
+        var endPosY = startPosY - 10; // Always move down
+        var duration = Math.random() * 1000 + 500; // Between 500ms and 1500ms
+
+        // Set the animation
+        shootingStar.setAttribute('animation', `property: position; to: ${endPosX} ${endPosY} ${startPosZ}; dur: ${duration}; easing: linear`);
+
+        scene.appendChild(shootingStar);
+
+        // Remove the star after the animation is complete
+        setTimeout(function() {
+            scene.removeChild(shootingStar);
+        }, duration);
+    }
+
+    // Create a shooting star every 1000ms
+    setInterval(createShootingStar, 1000);
+
+    window.onload = function() {
+        // (Other initializations)
+    };
+</script>
     </a-scene>
 
 
@@ -128,7 +168,8 @@
                 ringEntity.setAttribute('radius-inner', i * 0.2);
                 ringEntity.setAttribute('radius-outer', i * 0.2 + 0.05);
                 ringEntity.setAttribute('material', 'color: #000; side: double; opacity: 0.7');
-                ringEntity.setAttribute('position', '0 2 -5');
+                ringEntity.setAttribute('position', '0 2 -5.2');
+                ringEntity.setAttribute('rotation', '0 40 0');
                 ringEntity.setAttribute('animation', `property: material.opacity; to: 0; dur: 3000; easing: linear;`);
 
                 scene.appendChild(ringEntity);
@@ -147,6 +188,8 @@
                 createAndAnimateCircles();
             }
         }
+
+        
 
         // Attach the click event listener to the spookyEntity
         document.getElementById('spookyEntity').addEventListener('click', function() {
