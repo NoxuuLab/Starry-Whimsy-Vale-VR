@@ -33,8 +33,8 @@ This project is a Virtual Reality (VR) scene built with [A-Frame](https://aframe
     - [starcluster](https://skfb.ly/6SIpF)
     - [fluffy-cloud](https://skfb.ly/6RFxT)
     - [dwarf-star](https://skfb.ly/oPvHr)
-    - 
-
+      
+- Sounds are from [mixkit](https://mixkit.co/free-sound-effects/monster/)
 - A-Frame for providing the framework to build this VR scene.
 - [zcanter](https://github.com/zcanter) for the `aframe-gradient-sky` component.
 
