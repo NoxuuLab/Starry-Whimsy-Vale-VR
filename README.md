@@ -37,6 +37,7 @@ This project is a Virtual Reality (VR) scene built with [A-Frame](https://aframe
 - Sounds are from [mixkit](https://mixkit.co/free-sound-effects/monster/)
 - A-Frame for providing the framework to build this VR scene.
 - [zcanter](https://github.com/zcanter) for the `aframe-gradient-sky` component.
+- [dmarcos](https://www.npmjs.com/package/aframe-environment-component) for the `aframe-environement-component`.
 
 
 
