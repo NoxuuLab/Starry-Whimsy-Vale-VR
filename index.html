@@ -7,7 +7,6 @@
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
-    <script src="light-toggle.js"></script>
 </head>
 <body>
     <a-scene cursor="rayOrigin:mouse">
@@ -50,19 +49,58 @@
     </a-scene>
 
     <script>
-        // Function to create random models
-        // (createRandomModels function remains the same)
+        // Function to create animated clounds in random position
+        function createRandomModels(numberOfModels) {
+    var scene = document.querySelector('a-scene'); 
 
-        // Function to create a shooting star
+    for (let i = 0; i < numberOfModels; i++) {
+        var wrapper = document.createElement('a-entity');
+        wrapper.setAttribute('position', getRandomPosition());
+
+        var model = document.createElement('a-entity');
+        model.setAttribute('gltf-model', '#fluffy-cloud');
+        model.setAttribute('scale', '1 1 1');
+        wrapper.appendChild(model);
+
+        // Set up animation
+        model.setAttribute('animation', `property: rotation; 
+                                         to: 0 360 0; 
+                                         loop: true; 
+                                         dur: 5000; 
+                                         easing: linear`);
+
+        scene.appendChild(wrapper);
+    }
+}
+
+        function getRandomPosition() {
+            // Maximum values
+            var maxX = 10;
+            var maxY = 5;
+            var maxZ = -6;
+    
+            // Minimum values
+            var minX = -10;
+            var minY = 3;
+            var minZ = -5;
+    
+            var randomX = Math.random() * (maxX - minX) + minX * (Math.random() < 0.5 ? -1 : 1);
+            var randomY = Math.random() * (maxY - minY) + minY;
+            var randomZ = Math.random() * (maxZ - minZ) + minZ * (Math.random() < 0.5 ? -1 : 1);
+    
+            return randomX + ' ' + randomY + ' ' + randomZ;
+        }
+
+
         // Function to create a shooting star
     function createShootingStar() {
         var scene = document.querySelector('a-scene');
         var shootingStar = document.createElement('a-entity');
 
-        // Randomize the starting position
-        var startPosX = Math.random() * 20 - 10; // Random X between -10 and 10
-        var startPosY = Math.random() * 5 + 5;   // Random Y between 5 and 10
-        var startPosZ = Math.random() * 20 - 10; // Random Z between -10 and 10
+        // Random the starting position
+        var startPosX = Math.random() * 20 - 10;
+        var startPosY = Math.random() * 5 + 5;   
+        var startPosZ = Math.random() * 20 - 10; 
 
         // Set the position and model (using a thin cylinder here)
         shootingStar.setAttribute('geometry', 'primitive: cylinder; radius: 0.05; height: 1');
@@ -72,8 +110,8 @@
 
         // Randomize the direction and duration of the animation
         var endPosX = startPosX + (Math.random() * 20 - 10);
-        var endPosY = startPosY - 10; // Always move down
-        var duration = Math.random() * 1000 + 500; // Between 500ms and 1500ms
+        var endPosY = startPosY - 10; 
+        var duration = Math.random() * 1000 + 500; 
 
         // Set the animation
         shootingStar.setAttribute('animation', `property: position; to: ${endPosX} ${endPosY} ${startPosZ}; dur: ${duration}; easing: linear`);
@@ -89,10 +127,6 @@
     // Create a shooting star every 1000ms
     setInterval(createShootingStar, 1000);
 
-    window.onload = function() {
-     
-    };
-
         // Function to create and animate circles
         function createAndAnimateCircles() {
             const numCircles = 5;
@@ -103,7 +137,7 @@
                 ringEntity.setAttribute('radius-inner', i * 0.2);
                 ringEntity.setAttribute('radius-outer', i * 0.2 + 0.05);
                 ringEntity.setAttribute('material', 'color: #000; side: double; opacity: 0.7');
-                ringEntity.setAttribute('position', '0 3 -5.2');
+                ringEntity.setAttribute('position', '-0.6 3 -5.2');
                 ringEntity.setAttribute('rotation', '0 20 0');
                 ringEntity.setAttribute('animation', `property: material.opacity; to: 0; dur: 3000; easing: linear;`);
 
