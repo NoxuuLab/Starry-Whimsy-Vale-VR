@@ -10,7 +10,7 @@ This project is a Virtual Reality (VR) scene built with [A-Frame](https://aframe
 **Date**: _Autumn semester, 2023_
 
 
-![VR Scene Preview](path/to/Screenshot.png)
+![VR Scene Preview](https://github.com/NoxuuLab/Starry-Whimsy-Vale-VR/blob/607b212eb6ab4a17399d2763f11b87412eb55e3e/assets/Screenshot.png)
 
 ## Features
 
@@ -30,7 +30,7 @@ This project is a Virtual Reality (VR) scene built with [A-Frame](https://aframe
 
 - Models are sourced from [Sketchfab](https://sketchfab.com/).
     - [monster](https://skfb.ly/oqySC)
-    - [starcluster] (https://skfb.ly/6SIpF)
+    - [starcluster](https://skfb.ly/6SIpF)
     - [fluffy-cloud](https://skfb.ly/6RFxT)
     - [dwarf-star](https://skfb.ly/oPvHr)
     - 
